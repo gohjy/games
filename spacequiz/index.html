@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Space Quiz</title>
+  <link href="https://gohjy.repl.co/style.css" rel="stylesheet" type="text/css" />
+	<script src="https://gohjy.repl.co/script.js"></script>
+	<link rel="icon" type="image/x-icon" href="https://gohjy.repl.co/logo.jpeg">
+</head>
+
+<body onload="nextquestion()">
+  <div id="header-bar">
+		<img id="logo" src="https://gohjy.repl.co/logo.jpeg"/>
+		<a href="https://gohjy.repl.co/" class="header-link" target="home">gohjy</a>
+		&nbsp;
+		<a href="https://replit.com/@gohjy" target="replit-profile">replit</a>
+		&nbsp;
+		<a href="https://scratch.mit.edu/users/gohjy/" target="scratch-profile">scratch</a>
+		&nbsp;
+		<a href="/games.html" target="games-html-tab" class="header-link">games</a>
+	</div>
+	<h1>Space Quiz</h1>
+	<p id="questionNum"></p>
+	<p id="questionText"></p>
+	<input id="answerBox"/>
+	<button id="btn"></button>
+	<p id="status"></p>
+  <script src="https://gohjy.repl.co/script.js"></script>
+	<script src="script.js" questionref="questionText" statusref="status" inputbox="answerBox" qnoref="questionNum" btnref="btn"></script>
+ 
+</body>
+
+</html>
