@@ -1,0 +1,20 @@
+:root {
+	--box-size: 50px;
+}
+
+#board div div {
+	text-align: center;
+	vertical-align: middle;
+	display: table-cell;
+	border: 1px solid black;
+	width: var(--box-size);
+	height: var(--box-size);
+}
+
+#board {
+	border: 1px solid black;
+	margin-left: auto;
+	margin-right: auto;
+	width: calc(3 * var(--box-size) + 6px);
+/*	height: calc(3 * var(--box-size) + 3px);*/
+}
