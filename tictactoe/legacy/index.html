@@ -8,9 +8,40 @@
   <link href="style.css" rel="stylesheet" type="text/css" />
 	<link href="https://gohjy.github.io/gohjy/legacy/replit-style.css" rel="stylesheet" type="text/css" />
 	<link rel="icon" type="image/x-icon" href="https://gohjy.github.io/gohjy/legacy/replit-gohjy-logo.png">
+
+	<style>
+		/* This was added when v2 was created, not present in the original! */
+		#notice {
+			width: 100%;
+			background-color: #ff000088;
+			margin: 0;
+			padding: 5px;
+		}
+		#header-bar {
+			position: sticky;
+		}
+		body::before {
+			display: none;
+		}
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		body > *:not(#board) {
+			padding: 8px;
+			box-sizing: border-box;
+		}
+		.header-link, #header-bar a {
+			height: 100%;
+		}
+	</style>
 </head>
 
 <body>
+	<p id="notice">
+		<!-- This was added when v2 was created, not present in the original! -->
+		 Note: This is the legacy version of the game. You might want <a href="../v2/">version 2 of this game</a> instead.
+	</p>
 	<div id="header-bar">
 		<img id="logo" src="https://gohjy.github.io/gohjy/legacy/replit-gohjy-logo.png"/>
 		<a class="header-link" target="home" style="color: grey; text-decoration-line: none;">gohjy</a>
