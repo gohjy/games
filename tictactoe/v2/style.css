@@ -2,8 +2,14 @@
 	--box-size: 100px;
 }
 
+html {
+	scrollbar-gutter: stable both-edges;
+	scrollbar-color: #00000088 transparent;
+}
+
 body {
 	text-align: center;
+	font-size: 16px;
 }
 
 #board div div {
@@ -53,4 +59,8 @@ body {
 
 .invisible {
 	display: none;
+}
+
+#help-button {
+	font-size: 1rem;
 }
