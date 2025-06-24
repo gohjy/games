@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>2-Player Tic-Tac-Toe</title>
+    <style>
+        :root {
+            --box-size: 100px;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        #board div div {
+            text-align: center;
+            vertical-align: middle;
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            width: var(--box-size);
+            height: var(--box-size);
+
+            font-size: 2.5em;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #board > div {
+            display: flex;
+            flex-flow: row nowrap;
+        }
+
+        #board div div:last-child {
+            border-right: 1px solid black;
+        }
+
+        #board div:last-child div {
+            border-bottom: 1px solid black;
+        }
+
+        #board {
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .win {
+            background-color: yellow;
+        }
+
+        #sr {
+            text-align: center;
+        }
+
+        .invisible {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+	<h1 id="title-header">Tic-Tac-Toe <button id="help-button">?</button></h1>
+	<div id="instructions" class="invisible">
+		<p>
+            ✕ starts. Click/tap each box on your turn. The page will auto-detect if there is a winner and highlight the winning row, column or diagonal (in that order) if so.
+        </p>
+		<p>
+            Made by gohjy. This is a download-safe version 2 of this game, which does not make any network requests and was last updated on 24 June 2025. If you have an internet connection, you may want to have a look at the <a>online version of this game</a>, which receives updates when needed.
+        </p>
+	</div>
+
+	<div id="board">
+		<div>
+			<div id="a0_0"></div>
+			<div id="a0_1"></div>
+			<div id="a0_2"></div>
+		</div>
+		<div>
+			<div id="a1_0"></div>
+			<div id="a1_1"></div>
+			<div id="a1_2"></div>
+		</div>
+		<div>
+			<div id="a2_0"></div>
+			<div id="a2_1"></div>
+			<div id="a2_2"></div>
+		</div>
+	</div>
+	<p id="sr">&nbsp;</p>
+	<p>
+		<button id="reset-button">Reset game</button>
+	</p>
+
+  	<script>
+        let isPlay = true;
+
+        const boxes = [];
+        const gridSize = 3;
+
+        for (let i=0; i<gridSize; i++) {
+            const row = [];
+            for (let j=0; j<gridSize; j++) {
+                row.push(document.querySelector(`#a${i}_${j}`));
+            }
+            boxes.push(row);
+        }
+
+        const players = 2;
+
+        let turns = ["◯", "✕"];
+        let turnCount = 0;
+
+        const equal = (...boxes) => {
+            const first = boxes[0].dataset.owner;
+            return !!first && boxes.every(x => x.dataset.owner === first);
+        }
+
+        const checkForWin = () => {
+            // Rows and columns
+            
+            let diag1 = [];
+            let diag2 = [];
+            for (let n=0; n<gridSize; n++) {
+                let rowsToCheck = [];
+                let colsToCheck = [];
+                for (let m=0; m<gridSize; m++) {
+                    rowsToCheck.push(boxes[n][m]);
+                    colsToCheck.push(boxes[m][n]);
+                }
+                if (equal(...rowsToCheck)) return rowsToCheck;
+                if (equal(...colsToCheck)) return colsToCheck;
+
+                diag1.push(boxes[n][n]);
+                diag2.push(boxes[n][gridSize-n-1]);
+            }
+
+            console.log(diag1);
+            console.log(diag2);
+
+            if (equal(...diag1)) return diag1;
+            if (equal(...diag2)) return diag2;
+            return null;
+        }
+
+        const isAllFilled = () => {
+            return boxes.flat(1).every(x => !!x.dataset.owner);
+        }
+
+        const evHandler = (ev) => {
+            if (!isPlay) return false;
+            if (ev.target.dataset.owner) return false;
+            turnCount += 1;
+            ev.target.textContent = ev.target.dataset.owner = turns[turnCount % turns.length];
+            const winnerBox = checkForWin();
+            if (winnerBox) {
+                for (let box of winnerBox) {
+                    box.classList.add("win");
+                }
+                document.querySelector("#sr").textContent = `${turns[turnCount % turns.length]} won the game!`;
+                isPlay = false;
+                return true;
+            } else {
+                if (isAllFilled()) {
+                    document.querySelector("#sr").textContent = "It's a tie!";
+                    isPlay = false;
+                    return true;
+                }
+            }
+        }
+
+        for (let box of boxes.flat(1)) {
+            box.addEventListener("click", evHandler);
+        }
+
+
+        const reset = () => {
+            for (let box of boxes.flat(1)) {
+                box.textContent = box.dataset.owner = "";
+                box.classList.remove("win");
+            }
+
+            document.querySelector("#sr").innerHTML = "&nbsp;";
+
+            turnCount = 0;
+            isPlay = true;
+        }
+
+        document.querySelector("#reset-button").addEventListener("click", reset);
+
+        document.querySelector("#help-button").addEventListener("click", () => {
+            document.querySelector('#instructions').classList.toggle("invisible");
+        })
+    </script>
+
+</body>
+
+</html>
